@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    environment {
-        registry = "atefhares/simple_python_app"
-        registryCredential = 'docker_id'
-        dockerImage = ''
-    }
 
     stages {
         stage('unit testing') {
@@ -21,8 +16,8 @@ pipeline {
 
         stage('Push docker image to DockerHub') {
             steps {
-                docker.withRegistry( '', registryCredential ) {
-                    sh "docker push atefhares/simple_python_app"
+                withCredentials([usernamePassword(credentialsId: 'docker_id', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+                  sh "docker push atefhares/simple_python_app"
                 }
             }
         }
