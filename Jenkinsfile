@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {
-                sh "docker build --tag=atefhares/simple_python_app:latest ."
+                sh "docker build --tag=simple_python_app ."
             }
         }
 
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_id', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
                   sh 'docker login -u=$DOCKER_REGISTRY_USER -p=$DOCKER_REGISTRY_PWD'
-                  sh "docker push atefhares/simple_python_app"
+                  sh "docker push atefhares/simple_python_app:latest"
                 }
             }
         }
