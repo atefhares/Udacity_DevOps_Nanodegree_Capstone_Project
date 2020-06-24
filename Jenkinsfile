@@ -8,27 +8,27 @@ pipeline {
         }
 
         stage('Build docker image') {
-            // steps {
-                // sh "docker-compose -f challenge_1/docker-compose.yaml up -d"
-            // }
+            steps {
+                sh "docker-compose -f challenge_1/docker-compose.yaml up -d"
+            }
         }
 
-        stage('Push docker image to DockerHub') {
-            // steps {
+        // stage('Push docker image to DockerHub') {
+        //     steps {
                 
-            // }
-        }
+        //     }
+        // }
 
-        stage('Build infrastructure for the app') {
-            // steps {
+        // stage('Build infrastructure for the app') {
+        //     steps {
                 
-            // }
-        }
+        //     }
+        // }
 
-        stage('Deploy the app') {
-            // steps {
+        //  stage('Deploy the app') {
+        //     steps {
                 
-            // }
-        }
+        //     }
+        // }
     }
 }
