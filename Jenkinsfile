@@ -26,9 +26,9 @@ pipeline {
         }
 
         stage('Deploy the app') {
-            steps {
+            // steps {
                 
-            }
+            // }
         }
     }
 }
