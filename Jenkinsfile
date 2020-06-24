@@ -7,11 +7,11 @@ pipeline {
             }
         }
 
-        stage('Build docker image') {
-            steps {
-                sh "docker-compose -f challenge_1/docker-compose.yaml up -d"
-            }
-        }
+        // stage('Build docker image') {
+        //     steps {
+        //         sh "docker-compose -f challenge_1/docker-compose.yaml up -d"
+        //     }
+        // }
 
         // stage('Push docker image to DockerHub') {
         //     steps {
