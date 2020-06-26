@@ -24,11 +24,11 @@ pipeline {
             } 
         }
 
-        // stage('Build infrastructure for the app') {
-        //     steps {
-                
-        //     }
-        // }
+        stage('Build infrastructure for the app') {
+            steps {
+                sh './cloudformation/create.sh'
+            }
+        }
 
         //  stage('Deploy the app') {
         //     steps {
