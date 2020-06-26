@@ -12,6 +12,8 @@ Resources:
   MainVPC:
     Type: AWS::EC2::VPC
     Properties:
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
       CidrBlock: !Ref VPCCIDR
       Tags:
         - Key: Name
@@ -71,7 +73,7 @@ Resources:
           IpProtocol: TCP
           ToPort: 65535
       SecurityGroupIngress:
-        - CidrIp: !Ref VPCCIDR
+        - CidrIp: 0.0.0.0/0
           FromPort: 0
           IpProtocol: TCP
           ToPort: 65535

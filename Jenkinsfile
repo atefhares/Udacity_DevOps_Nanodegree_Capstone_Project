@@ -26,6 +26,7 @@ pipeline {
 
         stage('Build infrastructure for the app') {
             steps {
+                sh 'PATH="$PATH:/usr/local/bin/aws"'
                 sh './cloudformation/create.sh AtefUdacityCapstoneStack cloudformation/infrastructure.yml cloudformation/params.json'
             }
         }
