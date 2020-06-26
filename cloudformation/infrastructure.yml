@@ -103,7 +103,7 @@ Resources:
           sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/` curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
           sudo chmod +x ./kubectl
           sudo mv ./kubectl /usr/local/bin/kubectl
-          sudo usermod -aG docker $USER && newgrp docker
+          sudo usermod -aG docker ubuntu && newgrp docker
           minikube start
           git clone https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project project
           kubectl apply -f project/kubernetes/database_deployment.yaml
