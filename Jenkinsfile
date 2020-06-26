@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build infrastructure for the app') {
             steps {
-                sh './cloudformation/create.sh'
+                sh './cloudformation/create.sh "AtefUdacityCapstoneStack" infrastructure.yml params.json'
             }
         }
 
