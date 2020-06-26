@@ -26,7 +26,9 @@ pipeline {
 
         stage('Build infrastructure for the app') {
             steps {
-                sh './cloudformation/create.sh AtefUdacityCapstoneStack cloudformation/infrastructure.yml cloudformation/params.json'
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'aws-key', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                   sh './cloudformation/create.sh AtefUdacityCapstoneStack cloudformation/infrastructure.yml cloudformation/params.json'
+                }
             }
         }
 
