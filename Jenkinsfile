@@ -26,8 +26,6 @@ pipeline {
 
         stage('Build infrastructure for the app') {
             steps {
-                sh 'echo "alias aws="/usr/local/bin/aws"" >> ~/.bashrc'
-                sh 'source ~/.bashrc'
                 sh './cloudformation/create.sh AtefUdacityCapstoneStack cloudformation/infrastructure.yml cloudformation/params.json'
             }
         }
