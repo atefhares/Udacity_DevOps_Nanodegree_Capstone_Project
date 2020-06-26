@@ -98,17 +98,17 @@ Resources:
           ca-certificates \
           curl \
           gnupg-agent \
-          software-properties-common
+          software-properties-common -y
           curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
           sudo add-apt-repository \
           "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
           $(lsb_release -cs) \
-          stable"
-          sudo apt-get update
-          sudo apt-get install docker-ce docker-ce-cli containerd.io
+          stable" -y
+          sudo apt-get update -y
+          sudo apt-get install docker-ce docker-ce-cli containerd.io -y
           sudo systemctl start docker
           minikube start
-          
+
       KeyName: "atef_key_pair"
       ImageId: ami-0ac80df6eff0e70b5
       InstanceType: t2.medium
