@@ -82,7 +82,7 @@ Resources:
   LaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
-      KeyName: "atef_key_pair"  
+      KeyName: "atef_key_pair"
       ImageId: ami-0ac80df6eff0e70b5
       InstanceType: t2.medium
       SecurityGroups: [!Ref SG]
@@ -111,8 +111,7 @@ Resources:
     Properties:
       AutoScalingGroupName: AutoScalingGroup
       VPCZoneIdentifier:
-        - !Ref PrivateSubnet1
-        - !Ref PrivateSubnet2
+        - !Ref PublicSubnet
       LaunchConfigurationName:
         Ref: LaunchConfig
       MaxSize: 1
