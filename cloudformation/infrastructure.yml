@@ -1,0 +1,133 @@
+Parameters:
+  EnvironmentName:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+  VPCCIDR:
+    Description: "VPC CIDR"
+    Type: String
+  PublicSubnetCIDR:
+    Type: String
+
+Resources:
+  MainVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCCIDR
+      Tags:
+        - Key: Name
+          Value: !Sub ${EnvironmentName} _Atef_VPC
+  # -------------------------------------------------------------------
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Select [0, !GetAZs ""]
+      CidrBlock: !Ref PublicSubnetCIDR
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: !Sub ${EnvironmentName} Public Subnet (AZ1)
+      VpcId: !Ref MainVPC
+
+  # -------------------------------------------------------------------
+
+  IGW:
+    Type: AWS::EC2::InternetGateway
+
+  AttachIGWToVPC:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref IGW
+      VpcId: !Ref MainVPC
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref MainVPC
+
+  PublicSubnetRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref IGW
+      RouteTableId: !Ref PublicRouteTable
+
+  AttachIGWToPublicSubnet:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      SubnetId: !Ref PublicSubnet
+
+  # -------------------------------------------------------------------
+
+  SG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: Ec2_Sg
+      GroupDescription: "allow Http traffic"
+      SecurityGroupEgress:
+        - CidrIp: 0.0.0.0/0
+          FromPort: 0
+          IpProtocol: TCP
+          ToPort: 65535
+      SecurityGroupIngress:
+        - CidrIp: !Ref VPCCIDR
+          FromPort: 0
+          IpProtocol: TCP
+          ToPort: 65535
+      VpcId: !Ref MainVPC
+
+  # -------------------------------------------------------------------
+
+  LaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      KeyName: "atef_key_pair"  
+      ImageId: ami-0ac80df6eff0e70b5
+      InstanceType: t2.medium
+      SecurityGroups: [!Ref SG]
+      BlockDeviceMappings:
+        - DeviceName: "/dev/sdk"
+          Ebs:
+            VolumeSize: "10"
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      HealthCheckEnabled: true
+      HealthCheckIntervalSeconds: 300
+      HealthCheckPath: /
+      HealthCheckPort: 80
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 15
+      HealthyThresholdCount: 2
+      Port: 80
+      Protocol: HTTP
+      UnhealthyThresholdCount: 10
+      VpcId: !Ref MainVPC
+
+  ASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: AutoScalingGroup
+      VPCZoneIdentifier:
+        - !Ref PrivateSubnet1
+        - !Ref PrivateSubnet2
+      LaunchConfigurationName:
+        Ref: LaunchConfig
+      MaxSize: 1
+      MinSize: 1
+      TargetGroupARNs:
+        - !Ref TargetGroup
+
+Outputs:
+  VPC:
+    Description: Main VPC
+    Value: !Ref MainVPC
+    Export:
+      Name: !Sub "${EnvironmentName}-VPC"
+  PublicSubnet1:
+    Description: Public Subnet
+    Value: !Ref PublicSubnet
+    Export:
+      Name: !Sub "${EnvironmentName}-PublicSubnet-1"
