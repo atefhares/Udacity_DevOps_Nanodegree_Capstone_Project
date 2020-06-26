@@ -87,29 +87,22 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
-          sudo -i
-          apt-get update -y
-          curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
-          chmod +x minikube
-          mkdir -p /usr/local/bin/
-          install minikube /usr/local/bin/
-          apt-get remove docker docker-engine docker.io containerd runc
-          apt-get install \
-          apt-transport-https \
-          ca-certificates \
-          curl \
-          gnupg-agent \
-          software-properties-common -y
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          add-apt-repository \
-          "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-          $(lsb_release -cs) \
-          stable" -y
-          apt-get update -y
-          apt-get install docker-ce docker-ce-cli containerd.io -y
-          systemctl start docker
-          exit
+          sudo apt-get update -y
+          sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y
+          sudo curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
+          sudo chmod +x minikube
+          sudo mkdir -p /usr/local/bin/
+          sudo install minikube /usr/local/bin/
+          sudo apt-get remove docker docker-engine docker.io containerd runc
+          sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" -y
+          sudo apt-get update -y
+          sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+          sudo systemctl start docker
           sudo usermod -aG docker $USER && newgrp docker
+          sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/` curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+          sudo chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
           minikube start
 
       KeyName: "atef_key_pair"
