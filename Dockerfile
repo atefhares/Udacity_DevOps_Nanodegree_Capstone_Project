@@ -4,5 +4,4 @@ RUN apt-get install python3-pip -y
 WORKDIR /python_app 
 COPY ./PythonApp .
 RUN pip install -r requirements.txt
-RUN apt-get update
 CMD python hello.py
