@@ -12,12 +12,25 @@ The Goal of this project is to create a pipeline that automates the proccess of 
   - **TESTING**: Running unit testing on the code
   - **DOCKERIZING**: Dockerizing the application into an image locally
   - **PUSHING**: Pushing the built image to DockerHub
-  - **BUILDING_INFRASTURTURE**: Building the infrastructure and Kubernetes cluster using AWS cloudformation and ansbile
-  - **DEPLOYING**: Deploying the dockrized app from dockerhub onto the cluster in AWS
-
+  - **DEPLOY**: Building the infrastructure and Kubernetes cluster using AWS cloudformation and deploy the Pyhthon app
+  
 ## Getting starting:
 - Install jenkins, git, python3 + pip3, docker, ansible
 - Configure jenkins to create a pipeline using the provided `JenkinsFile` + configure needed credentials [DockerHub, AWS]
 - Run the pipeline!
 
 ## Outputs
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_019.png)
+#
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_020.png)
+#
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_021.png)
+#
+### Blue-Green deployment
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_025.png)
+
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_027.png)
+
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_028.png)
+
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_029.png)
