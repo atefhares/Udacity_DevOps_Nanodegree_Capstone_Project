@@ -20,6 +20,8 @@ The Goal of this project is to create a pipeline that automates the proccess of 
 - Run the pipeline!
 
 ## Outputs
+![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_030.png)
+#
 ![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_019.png)
 #
 ![](https://github.com/atefhares/Udacity_DevOps_Nanodegree_Capsone_Project/blob/master/screenshots/Selection_020.png)
