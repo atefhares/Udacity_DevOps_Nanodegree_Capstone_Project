@@ -1,4 +1,4 @@
-# Udacity DevOps Nanodegree capstone Project - Atef Hares
+# Udacity DevOps Nanodegree capstone Project
 
 The Goal of this project is to create a pipeline that automates the proccess of deploying the provided PythonApp to a kubernetes cluster on AWS
 
